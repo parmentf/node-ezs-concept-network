@@ -85,6 +85,16 @@ describe('convertToConceptNetwork', () => {
             expect(cn).toBeInstanceOf(ConceptNetwork);
             expect(cn.node).not.toEqual({});
             expect(cn.node[1]).toEqual({ id: 1, label: 'id:1', occ: 1});
+            expect(cn).toEqual({
+                fromIndex: {},
+                labelIndex: { 'id:1': 1 },
+                link: {},
+                node: {
+                    1: { id: 1, label: 'id:1', occ: 1 }
+                }, 
+                nodeLastId: 1,
+                toIndex: {}
+            })
             done();
         })
         .on('error', done);
