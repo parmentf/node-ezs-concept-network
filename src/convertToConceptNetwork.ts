@@ -17,7 +17,7 @@ export default function convertToConceptNetwork(data: object | object[], feed): 
             nodes.push(cn.addNode(`${key}:${object[key]}`));
         }
         nodes.forEach(node => {
-            const otherNodes = nodes.filter(otherNode => otherNode.id > node.id);
+            const otherNodes = nodes.filter(otherNode => otherNode.id !== node.id);
             otherNodes.forEach(otherNode => {
                 cn.addLink(node.id, otherNode.id);
                 cn.addLink(otherNode.id, node.id);
