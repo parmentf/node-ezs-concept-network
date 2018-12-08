@@ -1,0 +1,35 @@
+{
+  "name": "ezs-concept-network",
+  "version": "1.0.0",
+  "description": "Statements for ezs, create a concept network from a JSON Stream",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "build": "tsc",
+    "build:w": "tsc --watch",
+    "lint": "eslint src/**/*.ts",
+    "prepublish": "npm run build",
+    "pretest": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parmentf/node-ezs-concept-network.git"
+  },
+  "keywords": [
+    "ezs",
+    "stream",
+    "concept-network"
+  ],
+  "author": "François Parmentier <francois.parmentier@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/parmentf/node-ezs-concept-network/issues"
+  },
+  "homepage": "https://github.com/parmentf/node-ezs-concept-network#readme",
+  "devDependencies": {
+    "eslint": "5.10.0",
+    "jest": "23.6.0",
+    "typescript": "3.2.2",
+    "typescript-eslint-parser": "21.0.2"
+  }
+}
