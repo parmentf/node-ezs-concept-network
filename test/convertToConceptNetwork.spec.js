@@ -1,6 +1,6 @@
-const from = require('from');
-const ezs = require('ezs');
-const statements = require('../lib');
+import from from 'from';
+import ezs from 'ezs';
+import statements from '../lib';
 
 ezs.use(statements);
 
