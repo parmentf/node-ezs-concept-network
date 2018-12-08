@@ -28,8 +28,12 @@
   "homepage": "https://github.com/parmentf/node-ezs-concept-network#readme",
   "devDependencies": {
     "eslint": "5.10.0",
+    "from": "0.1.7",
     "jest": "23.6.0",
     "typescript": "3.2.2",
     "typescript-eslint-parser": "21.0.2"
+  },
+  "dependencies": {
+    "concept-network": "1.2.1"
   }
 }
