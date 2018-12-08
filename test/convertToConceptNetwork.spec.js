@@ -25,7 +25,7 @@ describe('convertToConceptNetwork', () => {
             .pipe(ezs('convertToConceptNetwork'))
             // .pipe(ezs('debug'))
             .on('data', (data) => {
-                expect(data).toBeInstanceOf(Array);
+                expect(data).not.toBeInstanceOf(Array);
                 res = res.concat(data);
             })
             .on('end', () => {
@@ -41,13 +41,29 @@ describe('convertToConceptNetwork', () => {
             .pipe(ezs('convertToConceptNetwork'))
             // .pipe(ezs('debug'))
             .on('data', (data) => {
-                expect(data).toBeInstanceOf(Array);
+                expect(data).not.toBeInstanceOf(Array);
                 res = res.concat(data);
             })
             .on('end', () => {
-                expect(res).toHaveLength(2);
+                expect(res).toHaveLength(1);
                 done();
             })
             .on('error', done);
     });
+
+    it('should return when the input is an array', (done) => {
+        let res = [];
+        from([[{ id: 1 }]])
+        .pipe(ezs('convertToConceptNetwork'))
+        // .pipe(ezs('debug'))
+        .on('data', (data) => {
+            expect(data).not.toBeInstanceOf(Array);
+            res = res.concat(data);
+        })
+        .on('end', () => {
+            expect(res).toHaveLength(1);
+            done();
+        })
+        .on('error', done);
+    })
 });
