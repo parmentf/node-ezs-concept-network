@@ -1,9 +1,19 @@
 import { ConceptNetwork } from 'concept-network';
 
-let cn: {
-    addNode(label: string, inc?: number): { id: number, label: string, occ: number };
-    addLink(fromId: number, toId: number, inc?: number): {fromId: number, toId: number, coOcc: number};
-};
+interface ConceptNetworkNode { id: number, label: string, occ: number }
+interface ConceptNetworkLink { fromId: number, toId: number, coOcc: number }
+interface ConceptNetwork {
+    node: { [index: number]: ConceptNetworkNode }
+    link: { [index: string]: ConceptNetworkLink }
+    nodeLastId: ConceptNetworkNode['id']
+    labelIndex: { [index: string]: ConceptNetworkNode['id'] }
+    fromIndex: { [index: number]: string }
+    toIndex: { [index: number]: string }
+    addNode(label: string, inc?: number): ConceptNetworkNode
+    addLink(fromId: ConceptNetworkNode['id'], toId: ConceptNetworkNode['id'], inc?: number): ConceptNetworkLink
+}
+
+let cn: ConceptNetwork;
 export default function convertToConceptNetwork(data: object | object[], feed): void {
     if (this.isLast()) {
         feed.write(cn);
@@ -15,7 +25,7 @@ export default function convertToConceptNetwork(data: object | object[], feed): 
         cn = new ConceptNetwork();
     }
     objects.forEach(object => {
-        const nodes: {id: number, label: string, occ: number}[] = [];
+        const nodes: ConceptNetworkNode[] = [];
         for(let key in object) {
             nodes.push(cn.addNode(`${key}:${object[key]}`));
         }
