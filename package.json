@@ -39,6 +39,6 @@
     "typescript-eslint-parser": "21.0.2"
   },
   "dependencies": {
-    "concept-network": "1.2.0"
+    "concept-network": "2.0.0"
   }
 }
