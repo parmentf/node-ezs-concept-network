@@ -1,17 +1,6 @@
-import { ConceptNetwork } from 'concept-network';
+import { ConceptNetwork, cnAddLink, cnAddNode } from 'concept-network/lib/concept-network';
 
-interface ConceptNetworkNode { id: number, label: string, occ: number }
-interface ConceptNetworkLink { fromId: number, toId: number, coOcc: number }
-interface ConceptNetwork {
-    node: { [index: number]: ConceptNetworkNode }
-    link: { [index: string]: ConceptNetworkLink }
-    nodeLastId: ConceptNetworkNode['id']
-    labelIndex: { [index: string]: ConceptNetworkNode['id'] }
-    fromIndex: { [index: number]: string }
-    toIndex: { [index: number]: string }
-    addNode(label: string, inc?: number): ConceptNetworkNode
-    addLink(fromId: ConceptNetworkNode['id'], toId: ConceptNetworkNode['id'], inc?: number): ConceptNetworkLink
-}
+interface ConceptNetworkNode { label: string, occ: number }
 
 let cn: ConceptNetwork;
 export default function convertToConceptNetwork(data: object | object[], feed): void {
@@ -22,21 +11,33 @@ export default function convertToConceptNetwork(data: object | object[], feed): 
     const objects: object[] = Array.isArray(data) ? data : [data];
     // transform these objects into one ConceptNetwork
     if (this.isFirst()) {
-        cn = new ConceptNetwork();
+        cn = {};
     }
     objects.forEach(object => {
-        const nodes: ConceptNetworkNode[] = [];
+        const documentNodes = [];
         for(let key in object) {
-            nodes.push(cn.addNode(`${key}:${object[key]}`));
+            const label = `${key}:${object[key]}`;
+            cn = cnAddNode(cn, label);
+            documentNodes.push(label);
         }
-        nodes.forEach(node => {
-            const otherNodes = nodes.filter(otherNode => otherNode.id > node.id);
+        // console.dir({documentNodes})
+        const alreadyLinkedLabels = [];
+        const documentLinks = [];
+        documentNodes.forEach(label => {
+            alreadyLinkedLabels.push(label);
+            const otherNodes = cn.node.filter(otherNode => !alreadyLinkedLabels.includes(otherNode.label));
             otherNodes.forEach(otherNode => {
-                // console.log(`${node.id} <-> ${otherNode.id}`)
-                cn.addLink(node.id, otherNode.id);
-                cn.addLink(otherNode.id, node.id);
-            })
-        })
+                if(!documentLinks.find(link => link.from === label && link.to === otherNode.label)) {
+                    // console.dir({ documentLinks, label, otherNode });
+                    cn = cnAddLink(cn, label, otherNode.label);
+                    documentLinks.push({ from: label, to: otherNode.label });
+                }
+                if(!documentLinks.find(link => link.from === otherNode.label && link.to === label)) {
+                    cn = cnAddLink(cn, otherNode.label, label);
+                    documentLinks.push({ from: otherNode.label, to: label });
+                }
+            });
+        });
     });
     feed.end();
 }
