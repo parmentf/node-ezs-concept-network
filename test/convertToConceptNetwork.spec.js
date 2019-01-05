@@ -123,7 +123,7 @@ describe('convertToConceptNetwork', () => {
             expect(cn.node[3]).toEqual({ label: 'author:Turing', occ: 1 });
             expect(cn.node[4]).toEqual({ label: 'title:Computer power and human reason: From judgment to calculation', occ: 1 });
             expect(cnGetLink(cn, 'title:Eliza', 'author:Weizenbaum')).toEqual({ coOcc: 1, from: 0, to: 1 });
-            expect(cnGetLink(cn, 'author:Weizenbaum', 'title:Eliza')).toEqual({ coOcc: 1, from: 1, to: O });
+            expect(cnGetLink(cn, 'author:Weizenbaum', 'title:Eliza')).toEqual({ coOcc: 1, from: 1, to: 0 });
             expect(cnGetLink(cn, 'author:Weizenbaum', 'title:Computer power and human reason: From judgment to calculation'))
                 .toEqual({ coOcc: 1, from: 1, to: 4 });
             expect(cnGetLink(cn, 'title:Computing machinery and intelligence', 'author:Turing'))
@@ -145,7 +145,7 @@ describe('convertToConceptNetwork', () => {
             { title: 'Is verbal–spatial binding in working memory impaired by a concurrent memory load?', author: 'Parmentier', year: 2009 }
         ])
         .pipe(ezs('convertToConceptNetwork'))
-        .pipe(ezs('debug'))
+        // .pipe(ezs('debug'))
         .on('data', (cn) => {
             expect(cn.node[0]).toEqual({ label: 'title:Eliza', occ: 1 });
             expect(cn.node[1]).toEqual({ label: 'author:Weizenbaum', occ: 2 });
@@ -155,7 +155,7 @@ describe('convertToConceptNetwork', () => {
             expect(cn.node[5]).toEqual({ label: 'year:2009', occ: 2 });
             expect(cnGetLink(cn, 'year:2009', 'author:Turing')).toEqual({ coOcc: 1, from: 5, to: 4 });
             expect(cnGetLink(cn, 'year:2009', 'author:Parmentier')).toEqual({ coOcc: 1, from: 5, to: 9 });
-            expect(cnGetLink(cn, 'author;Turing', 'year:2009')).toEqual({ coOcc: 1, from: 4, to: 5 });
+            expect(cnGetLink(cn, 'author:Turing', 'year:2009')).toEqual({ coOcc: 1, from: 4, to: 5 });
             expect(cnGetLink(cn, 'author:Parmentier', 'year:2009')).toEqual({ coOcc: 1, from: 9, to: 5 });
             done();
         })

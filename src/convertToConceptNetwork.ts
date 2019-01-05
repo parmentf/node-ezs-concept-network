@@ -1,6 +1,5 @@
 import { ConceptNetwork, cnAddLink, cnAddNode } from 'concept-network/lib/concept-network';
-
-interface ConceptNetworkNode { label: string, occ: number }
+import { forEach, forEachObjIndexed } from 'ramda';
 
 let cn: ConceptNetwork;
 export default function convertToConceptNetwork(data: object | object[], feed): void {
@@ -13,31 +12,17 @@ export default function convertToConceptNetwork(data: object | object[], feed): 
     if (this.isFirst()) {
         cn = {};
     }
-    objects.forEach(object => {
-        const documentNodes = [];
-        for(let key in object) {
-            const label = `${key}:${object[key]}`;
+    forEach((object) => {
+        let previousNodes: string[] = [];
+        forEachObjIndexed((value, key) => {
+            const label = `${key}:${value}`;
             cn = cnAddNode(cn, label);
-            documentNodes.push(label);
-        }
-        // console.dir({documentNodes})
-        const alreadyLinkedLabels = [];
-        const documentLinks = [];
-        documentNodes.forEach(label => {
-            alreadyLinkedLabels.push(label);
-            const otherNodes = cn.node.filter(otherNode => !alreadyLinkedLabels.includes(otherNode.label));
-            otherNodes.forEach(otherNode => {
-                if(!documentLinks.find(link => link.from === label && link.to === otherNode.label)) {
-                    // console.dir({ documentLinks, label, otherNode });
-                    cn = cnAddLink(cn, label, otherNode.label);
-                    documentLinks.push({ from: label, to: otherNode.label });
-                }
-                if(!documentLinks.find(link => link.from === otherNode.label && link.to === label)) {
-                    cn = cnAddLink(cn, otherNode.label, label);
-                    documentLinks.push({ from: otherNode.label, to: label });
-                }
-            });
-        });
-    });
+            forEach((otherNode) => {
+                cn = cnAddLink(cn, otherNode, label);
+                cn = cnAddLink(cn, label, otherNode);
+            }, previousNodes);
+            previousNodes = [...previousNodes, label];
+        }, object);
+    }, objects);
     feed.end();
 }
