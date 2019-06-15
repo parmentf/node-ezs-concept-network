@@ -1,0 +1,22 @@
+# Get bibligraphic records from ISTEX
+# and convert them to a ConceptNetwork
+
+[use]
+plugin = istex
+plugin = basics
+plugin = concept-network
+
+[ISTEX]
+query = chatterbot
+field = arkIstex
+field = title
+field = author
+field = publicationDate
+field = subject
+
+[OBJFlatten]
+
+[convertToConceptNetwork]
+
+[JSONString]
+pretty = true

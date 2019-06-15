@@ -7,8 +7,8 @@ interface ConceptNetwork {
     link: { [index: string]: ConceptNetworkLink }
     nodeLastId: ConceptNetworkNode['id']
     labelIndex: { [index: string]: ConceptNetworkNode['id'] }
-    fromIndex: { [index: number]: string }
-    toIndex: { [index: number]: string }
+    fromIndex: { [index: number]: string[] }
+    toIndex: { [index: number]: string[] }
     addNode(label: string, inc?: number): ConceptNetworkNode
     addLink(fromId: ConceptNetworkNode['id'], toId: ConceptNetworkNode['id'], inc?: number): ConceptNetworkLink
 }

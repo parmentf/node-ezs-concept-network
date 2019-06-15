@@ -1,5 +1,7 @@
 import convertToConceptNetwork from './convertToConceptNetwork';
+import conceptNetworkState from './ConceptNetworkState';
 
 export default {
-    convertToConceptNetwork
+    convertToConceptNetwork,
+    ConceptNetworkState: conceptNetworkState,
 }
