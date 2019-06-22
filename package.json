@@ -2,7 +2,9 @@
   "name": "ezs-concept-network",
   "version": "1.0.0",
   "description": "Statements for ezs, create a concept network from a JSON Stream",
-  "engines" : { "node" : ">=12.0.0" },
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "main": "./src/index.js",
   "scripts": {
     "test": "jest --coverage",
@@ -31,8 +33,7 @@
     "eslint": "5.10.0",
     "ezs": "6.1.0",
     "from": "0.1.7",
-    "jest": "23.6.0",
-    "typescript-eslint-parser": "21.0.2"
+    "jest": "23.6.0"
   },
   "dependencies": {
     "concept-network": "1.2.0"
