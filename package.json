@@ -2,14 +2,13 @@
   "name": "ezs-concept-network",
   "version": "1.0.0",
   "description": "Statements for ezs, create a concept network from a JSON Stream",
-  "main": "./lib/index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "main": "./src/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc",
-    "build:w": "tsc --watch",
-    "lint": "eslint src/**/*.ts",
-    "prepublish": "npm run build",
-    "pretest": "npm run build"
+    "lint": "eslint src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -27,16 +26,10 @@
   },
   "homepage": "https://github.com/parmentf/node-ezs-concept-network#readme",
   "devDependencies": {
-    "babel-core": "6.26.3",
-    "babel-jest": "23.6.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-stage-3": "6.24.1",
-    "eslint": "5.10.0",
+    "eslint": "6.0.0",
     "ezs": "6.1.0",
     "from": "0.1.7",
-    "jest": "23.6.0",
-    "typescript": "3.2.2",
-    "typescript-eslint-parser": "21.0.2"
+    "jest": "23.6.0"
   },
   "dependencies": {
     "concept-network": "1.2.0"
