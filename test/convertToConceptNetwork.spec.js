@@ -1,6 +1,6 @@
 import from from 'from';
 import ezs from 'ezs';
-import statements from '../lib';
+import statements from '../src';
 import { ConceptNetwork } from 'concept-network';
 
 ezs.use(statements);
