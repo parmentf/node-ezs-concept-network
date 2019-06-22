@@ -26,9 +26,6 @@
   },
   "homepage": "https://github.com/parmentf/node-ezs-concept-network#readme",
   "devDependencies": {
-    "babel-core": "6.26.3",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-stage-3": "6.24.1",
     "eslint": "5.10.0",
     "ezs": "6.1.0",
     "from": "0.1.7",
