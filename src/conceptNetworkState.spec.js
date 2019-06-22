@@ -15,7 +15,7 @@ describe('ConceptNetworkState', () => {
         .on('end', () => {
             done(new Error('Should not work without any ConceptNetwork'));
         })
-        .on('error', (err) => done());
+        .on('error', () => done());
     });
 
     it('should return a ConceptNetworkState', (done) => {
