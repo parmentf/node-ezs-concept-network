@@ -6,7 +6,7 @@
   "main": "./src/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
     "ezs": "6.1.0",
     "from": "0.1.7",
     "jest": "23.6.0",
-    "typescript": "3.2.2",
     "typescript-eslint-parser": "21.0.2"
   },
   "dependencies": {
