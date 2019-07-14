@@ -2,6 +2,7 @@ import { ConceptNetworkState, ConceptNetwork } from 'concept-network';
 
 export default function conceptNetworkState(data, feed) {
     const toActivateIds = this.getParam('activate', []);
+    const doPropagate = this.getParam('propagate', false) === 'true';
     if (this.isLast()) {
         return feed.close();
     }
@@ -26,6 +27,10 @@ export default function conceptNetworkState(data, feed) {
         toActivateIds.forEach(nodeId => {
             cns.activate(nodeId);
         });
+
+        if (doPropagate) {
+            cns.propagate();
+        }
         feed.write(cns);
     }
     feed.end();
