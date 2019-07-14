@@ -40,9 +40,11 @@ describe('ConceptNetworkState', () => {
         }])
         .pipe(ezs('ConceptNetworkState', { activate: [1] }))
         .on('data', (data) => {
+            console.log('data', data)
             expect(data).toBeInstanceOf(ConceptNetworkState);
             expect(data.nodeState).toBeDefined();
-            expect(data.nodeState[1]).toEqual(100);
+            expect(data.nodeState[1]).toBeDefined();
+            expect(data.nodeState[1].activationValue).toEqual(100);
             done();
         })
         .on('error', done);
@@ -64,8 +66,10 @@ describe('ConceptNetworkState', () => {
         .on('data', (data) => {
             expect(data).toBeInstanceOf(ConceptNetworkState);
             expect(data.nodeState).toBeDefined();
-            expect(data.nodeState[1]).toEqual(100);
-            expect(data.nodeState[2]).toEqual(100);
+            expect(data.nodeState[1]).toBeDefined();
+            expect(data.nodeState[2]).toBeDefined();
+            expect(data.nodeState[1].activationValue).toEqual(100);
+            expect(data.nodeState[2].activationValue).toEqual(100);
             done();
         })
         .on('error', done);
