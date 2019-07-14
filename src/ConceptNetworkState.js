@@ -1,9 +1,8 @@
 import { ConceptNetworkState, ConceptNetwork } from 'concept-network';
 
 export default function conceptNetworkState(data, feed) {
-    if (this.isFirst() && !data) {
-        return feed.stop(new Error('No data passed to ConceptNetworkState'));
-    }
+    const toActivateIds = this.getParam('activate', []);
+    const doPropagate = this.getParam('propagate', false) === 'true';
     if (this.isLast()) {
         return feed.close();
     }
@@ -23,8 +22,15 @@ export default function conceptNetworkState(data, feed) {
         cn.toIndex = obj.toIndex;
         cns = new ConceptNetworkState(cn);
     }
-    
+
     if (cns) {
+        toActivateIds.forEach(nodeId => {
+            cns.activate(nodeId);
+        });
+
+        if (doPropagate) {
+            cns.propagate();
+        }
         feed.write(cns);
     }
     feed.end();

@@ -6,18 +6,6 @@ import { ConceptNetworkState } from 'concept-network';
 ezs.use(statements);
 
 describe('ConceptNetworkState', () => {
-    it('should error when no ConceptNetwork is given', (done) => {
-        from([])
-        .pipe(ezs('ConceptNetworkState'))
-        .on('data', () => {
-            done(new Error('Should not work without any ConceptNetwork'));
-        })
-        .on('end', () => {
-            done(new Error('Should not work without any ConceptNetwork'));
-        })
-        .on('error', () => done());
-    });
-
     it('should return a ConceptNetworkState', (done) => {
         from([{
             node: [
@@ -52,9 +40,11 @@ describe('ConceptNetworkState', () => {
         }])
         .pipe(ezs('ConceptNetworkState', { activate: [1] }))
         .on('data', (data) => {
+            console.log('data', data)
             expect(data).toBeInstanceOf(ConceptNetworkState);
             expect(data.nodeState).toBeDefined();
-            expect(data.nodeState[1]).toEqual(100);
+            expect(data.nodeState[1]).toBeDefined();
+            expect(data.nodeState[1].activationValue).toEqual(100);
             done();
         })
         .on('error', done);
@@ -76,8 +66,10 @@ describe('ConceptNetworkState', () => {
         .on('data', (data) => {
             expect(data).toBeInstanceOf(ConceptNetworkState);
             expect(data.nodeState).toBeDefined();
-            expect(data.nodeState[1]).toEqual(100);
-            expect(data.nodeState[2]).toEqual(100);
+            expect(data.nodeState[1]).toBeDefined();
+            expect(data.nodeState[2]).toBeDefined();
+            expect(data.nodeState[1].activationValue).toEqual(100);
+            expect(data.nodeState[2].activationValue).toEqual(100);
             done();
         })
         .on('error', done);
