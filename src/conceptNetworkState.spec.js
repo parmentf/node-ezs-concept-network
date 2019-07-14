@@ -6,18 +6,6 @@ import { ConceptNetworkState } from 'concept-network';
 ezs.use(statements);
 
 describe('ConceptNetworkState', () => {
-    it('should error when no ConceptNetwork is given', (done) => {
-        from([])
-        .pipe(ezs('ConceptNetworkState'))
-        .on('data', () => {
-            done(new Error('Should not work without any ConceptNetwork'));
-        })
-        .on('end', () => {
-            done(new Error('Should not work without any ConceptNetwork'));
-        })
-        .on('error', () => done());
-    });
-
     it('should return a ConceptNetworkState', (done) => {
         from([{
             node: [
